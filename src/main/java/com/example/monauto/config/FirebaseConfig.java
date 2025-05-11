@@ -16,21 +16,53 @@ import java.io.InputStream;
 @Configuration
 public class FirebaseConfig {
 
-   /* @Value("${firebase.config.path}")
-    private String configPath;
+    @Value("${FIREBASE_PROJECT_ID}")
+    private String projectId;
 
-    @Value("${firebase.storage.bucket-name}")
-    private String bucketName;*/
-   @Value("${FIREBASE_CONFIG_JSON}")
-   private String firebaseConfigJson;
+    @Value("${FIREBASE_CLIENT_EMAIL}")
+    private String clientEmail;
+
+    @Value("${FIREBASE_CLIENT_ID}")
+    private String clientId;
+
+    @Value("${FIREBASE_AUTH_URI}")
+    private String authUri;
+
+    @Value("${FIREBASE_TOKEN_URI}")
+    private String tokenUri;
+
+    @Value("${FIREBASE_AUTH_PROVIDER}")
+    private String authProvider;
+
+    @Value("${FIREBASE_CLIENT_X509}")
+    private String clientX509;
+
+    @Value("${FIREBASE_PRIVATE_KEY}")
+    private String privateKey;
+
+    @Value("${FIREBASE_PRIVATE_KEY_ID}")
+    private String privateKeyId;
 
     @Value("${FIREBASE_STORAGE_BUCKET}")
     private String bucketName;
 
     @PostConstruct
     public void initialize() throws IOException {
-        /*InputStream serviceAccount = getClass().getClassLoader()
-                .getResourceAsStream(configPath);*/
+        // Créez le JSON de configuration dynamiquement
+        String firebaseConfigJson = String.format(
+                "{\"type\":\"service_account\",\"project_id\":\"%s\",\"private_key\":\"%s\",\"client_email\":\"%s\",\"client_id\":\"%s\",\"private_key_id\":\"%s\",\"auth_uri\":\"%s\",\"token_uri\":\"%s\",\"auth_provider_x509_cert_url\":\"%s\",\"client_x509_cert_url\":\"%s\",\"universe_domain\":\"googleapis.com\"}",
+                projectId,
+                privateKey.replace("\\n", "\n"),  // Important pour les sauts de ligne
+                clientEmail,
+                clientId,
+                privateKeyId,
+                authUri,
+                tokenUri,
+                authProvider,
+                clientX509
+
+        );
+System.out.println(firebaseConfigJson);
         InputStream serviceAccount = new ByteArrayInputStream(firebaseConfigJson.getBytes());
 
         FirebaseOptions options = FirebaseOptions.builder()
@@ -48,3 +80,4 @@ public class FirebaseConfig {
         return StorageClient.getInstance();
     }
 }
+

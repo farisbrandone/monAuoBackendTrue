@@ -138,9 +138,9 @@ public class SellerServiceImpl implements SellerService {
         String text = "Thank you for registering. Please confirm your email by clicking the link below:\n\n"
                 + "http://localhost:3000/seller-confirm-registration?token=" + jwtRefreshToken;
 
-        System.out.println("http://localhost:3000/seller-confirm-registration?token=" + jwtRefreshToken);
+        //System.out.println("http://localhost:3000/seller-confirm-registration?token=" + jwtRefreshToken);
 
-        //emailService.sendConfirmationEmail(seller.getEmail(), subject, text);
+        emailService.sendConfirmationEmail(seller.getEmail(), subject, text);
 
         return sellerRepository.save(seller);
     }

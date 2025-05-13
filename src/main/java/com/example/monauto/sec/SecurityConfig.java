@@ -52,7 +52,7 @@ public class SecurityConfig {
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.authorizeHttpRequests(authorizeRequests ->authorizeRequests.requestMatchers("/h2-console/**", "/refreshToken/**", "/forgot-password","/reset-password", "/signup", "/validate-reset-token", "/confirm", "/swagger-ui/**", "/sendContact", "/updateAuto").permitAll());
         http.authorizeHttpRequests(auth -> auth.requestMatchers(SWAGGER_WHITELIST).permitAll());
-        http.authorizeHttpRequests(auth -> auth.requestMatchers(HttpMethod.GET,"/autos/**", "/search/**", "/newsearch" ).permitAll());
+        http.authorizeHttpRequests(auth -> auth.requestMatchers(HttpMethod.GET,"/autos/**", "/search/**", "/newsearch/**" ).permitAll());
         http.authorizeHttpRequests(auth -> auth.requestMatchers(HttpMethod.DELETE,"/deleteImageAuto/**","/deleteAuto/**", "/deleteUser/**" ).permitAll());
        /* http.csrf(csrf -> csrf
                 .ignoringRequestMatchers(SWAGGER_WHITELIST) // Disable CSRF for Swagger

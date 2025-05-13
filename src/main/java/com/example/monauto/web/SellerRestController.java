@@ -65,7 +65,7 @@ public class SellerRestController {
             @RequestParam(defaultValue = "id") String sortBy,
             @RequestParam(defaultValue = "asc") String direction) {
 
-
+       System.out.println(criteria.toString()+"lalalala1");
         String marques=criteria.getMarques();
         String typesCarrosserie=criteria.getTypesCarrosserie();
         Date anneeMin= criteria.getAnneeMin()!=null ?Convertion.convertStringToDate( criteria.getAnneeMin()):null;
@@ -124,7 +124,7 @@ public class SellerRestController {
                 result.getTotalPages(),
                 result.isLast()
         );
-
+        System.out.println(criteria.toString()+"lalalala2");
         //System.out.println(response);
         return ResponseEntity.ok(response);
     }

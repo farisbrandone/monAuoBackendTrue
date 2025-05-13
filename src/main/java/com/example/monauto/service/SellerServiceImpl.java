@@ -136,7 +136,7 @@ public class SellerServiceImpl implements SellerService {
         //user.setTokenCreationDate(LocalDateTime.now());
         String subject = "Please confirm your registration";
         String text = "Thank you for registering. Please confirm your email by clicking the link below:\n\n"
-                + "https://monauobackendtrue.onrender.com/seller-confirm-registration?token=" + jwtRefreshToken;
+                + "https://mon-auto-com.onrender.com/seller-confirm-registration?token=" + jwtRefreshToken;
 
         //System.out.println("http://localhost:3000/seller-confirm-registration?token=" + jwtRefreshToken);
 
@@ -176,7 +176,7 @@ public class SellerServiceImpl implements SellerService {
         sellerRepository.save(seller);
 
         // Send email with reset link
-        String resetUrl = "https://monauobackendtrue.onrender.com/seller-change-password?token=" + token;
+        String resetUrl = "https://mon-auto-com.onrender.com/seller-change-password?token=" + token;
         String subject = "Password Reset Request";
         String text = "To reset your password, please click the link below:\n\n" + resetUrl +
                 "\n\nThis link will expire in 24 hours.";

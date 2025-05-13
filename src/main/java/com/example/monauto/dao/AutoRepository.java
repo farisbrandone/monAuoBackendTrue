@@ -21,8 +21,8 @@ public interface AutoRepository  extends JpaRepository<Auto, Long>, JpaSpecifica
     @Query("SELECT c FROM Auto c WHERE " +
             "(:marques IS NULL OR c.marques LIKE %:marques%) AND " +
             "(:typesCarrosserie IS NULL OR c.typesCarrosserie LIKE %:typesCarrosserie%) AND " +
-            "(:anneeMin IS NULL OR c.anneeDeFabrication >= :anneeMin) AND " +
-            "(:anneeMax IS NULL OR c.anneeDeFabrication <= :anneeMax) AND " +
+            "(:kilometrageMin IS NULL OR c.kilometrage >= CAST(:kilometrageMin AS float)) AND " +
+            "(:kilometrageMax IS NULL OR c.kilometrage <= CAST(:kilometrageMax AS float)) AND " +
             "(:typeMoteur IS NULL OR c.typeMoteur =:typeMoteur) AND " +
             "(:typeCarburant IS NULL OR c.typeCarburant =:typeCarburant) AND " +
             "(:selectedColor IS NULL OR c.couleurExt LIKE %:selectedColor%) AND " +

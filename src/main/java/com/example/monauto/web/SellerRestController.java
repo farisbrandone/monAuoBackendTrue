@@ -79,7 +79,7 @@ public class SellerRestController {
         String typeTransmission=criteria.getTypeTransmission();
         String keyword= criteria.getKeyWord();
         String selectedColor=criteria.getSelectedColor();
-
+        String villeDuBien=criteria.getVilleDuBien();
         Sort.Direction sortDirection = direction.equalsIgnoreCase("desc")
                 ? Sort.Direction.DESC : Sort.Direction.ASC;
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortDirection, sortBy));
@@ -97,6 +97,7 @@ public class SellerRestController {
                 typeCarburant,
                 typeTransmission,
                 selectedColor,
+                villeDuBien,
                 keyword,
                 pageable
         );

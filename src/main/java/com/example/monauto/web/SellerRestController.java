@@ -60,8 +60,8 @@ public class SellerRestController {
 
     @GetMapping("/newsearch")
     public ResponseEntity<PaginatedCarResponse> search(
-            @RequestParam(required = false) String marque,
-            @RequestParam(required = false) String typeCarrosserie,
+            @RequestParam(required = false) String marques,
+            @RequestParam(required = false) String typesCarrosserie,
             @RequestParam(required = false) String typeTransmission,
             @RequestParam(required = false) String kilometrageMin,
             @RequestParam(required = false) String kilometrageMax,
@@ -89,7 +89,7 @@ public class SellerRestController {
 
 
         Page<Auto> result= autoService.searchCars(
-                marque, typeCarrosserie, typeTransmission,
+                marques, typesCarrosserie, typeTransmission,
                 kilometrageMins, kilometrageMaxs, typeMoteur, typeCarburant,
                 couleur, PrixMins, PrixMaxs, anneeMins, anneeMaxs, ville, keyword, pageable
         );

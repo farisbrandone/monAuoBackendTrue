@@ -23,18 +23,18 @@ public interface AutoRepository  extends JpaRepository<Auto, Long>, JpaSpecifica
             "(:typesCarrosserie IS NULL OR c.typesCarrosserie LIKE %:typesCarrosserie%) AND " +
             "(:kilometrageMin IS NULL OR c.kilometrage >= CAST(:kilometrageMin AS float)) AND " +
             "(:kilometrageMax IS NULL OR c.kilometrage <= CAST(:kilometrageMax AS float)) AND " +
-            "(:typeMoteur IS NULL OR c.typeMoteur =:typeMoteur) AND " +
-            "(:typeCarburant IS NULL OR c.typeCarburant =:typeCarburant) AND " +
+            "(:typeMoteur IS NULL OR c.typeMoteur ==:typeMoteur) AND " +
+            "(:typeCarburant IS NULL OR c.typeCarburant ==:typeCarburant) AND " +
             "(:selectedColor IS NULL OR c.couleurExt LIKE %:selectedColor%) AND " +
-            "(:PrixMin IS NULL OR c.prix >= :PrixMin) AND " +
-            "(:PrixMax IS NULL OR c.prix <= :PrixMax) AND " +
+            "(:PrixMin IS NULL OR c.prix >= CAST(:PrixMin AS float)) AND " +
+            "(:PrixMax IS NULL OR c.prix <= CAST(:PrixMax AS float)) AND " +
             "(:kilometrageMin IS NULL OR c.kilometrage >= :kilometrageMin) AND " +
             "(:kilometrageMax IS NULL OR c.kilometrage <= :kilometrageMax) AND " +
             "(:keyword IS NULL OR " +
             " c.marques LIKE %:keyword% OR " +
             " c.typesCarrosserie LIKE %:keyword% OR " +
-            " c.typeCarburant =:keyword OR " +
-            " c.typeMoteur =:keyword)")
+            " c.typeCarburant ==:keyword% OR " +
+            " c.typeMoteur ==:keyword)")
     Page<Auto> searchCars( @Param("marques") String marques,
                            @Param("typesCarrosserie") String typesCarrosserie,
                            @Param("anneeMin") Date anneeMin,

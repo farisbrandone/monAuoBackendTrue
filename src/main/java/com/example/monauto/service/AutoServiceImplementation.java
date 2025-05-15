@@ -17,6 +17,7 @@ import com.example.monauto.enumFile.TypeCarburant;
 import com.example.monauto.randomGenerateValue.RandomString;
 import com.example.monauto.sec.JwtUtils;
 import com.example.monauto.utils.AutoMap;
+import com.example.monauto.utils.AutoSpecifications;
 import com.example.monauto.utils.AutoUpdateMap;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +27,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 
 @Service
 @Transactional
@@ -168,6 +172,40 @@ public class AutoServiceImplementation implements IAutoService {
         System.out.println(auto1.getImagesAuto());*/
         //return autoRepository.save(myAuto);
 
+    }
+
+
+    public Page<Auto> searchCars(
+            String marque,
+            String typeCarrosserie,
+            String typeTransmission,
+            Float kilometrageMin,
+            Float kilometrageMax,
+            String typeMoteur,
+            String typeCarburant,
+            String couleur,
+            Float prixMin,
+            Float prixMax,
+            Date anneeMin,
+            Date anneeMax,
+            String ville,
+            String keyword,
+            Pageable pageable
+    ) {
+        Specification<Auto> spec = Specification
+                .where(AutoSpecifications.hasMarque(marque))
+                .and(AutoSpecifications.hasTypeCarrosserie(typeCarrosserie))
+                .and(AutoSpecifications.hasTypeTransmission(typeTransmission))
+                .and(AutoSpecifications.hasKilometrageBetween(kilometrageMin, kilometrageMax))
+                .and(AutoSpecifications.hasTypeMoteur(typeMoteur))
+                .and(AutoSpecifications.hasTypeCarburant(typeCarburant))
+                .and(AutoSpecifications.hasCouleur(couleur))
+                .and(AutoSpecifications.hasPrixBetween(prixMin, prixMax))
+                .and(AutoSpecifications.hasAnneeBetween(anneeMin, anneeMax))
+                .and(AutoSpecifications.hasVille(ville))
+                .and(AutoSpecifications.hasKeyword(keyword));
+
+        return autoRepository.findAll(spec, pageable);
     }
 
 

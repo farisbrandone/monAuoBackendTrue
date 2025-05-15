@@ -57,7 +57,62 @@ public class SellerRestController {
     }
 
 
+
     @GetMapping("/newsearch")
+    public ResponseEntity<PaginatedCarResponse> search(
+            @RequestParam(required = false) String marque,
+            @RequestParam(required = false) String typeCarrosserie,
+            @RequestParam(required = false) String typeTransmission,
+            @RequestParam(required = false) String kilometrageMin,
+            @RequestParam(required = false) String kilometrageMax,
+            @RequestParam(required = false) String typeMoteur,
+            @RequestParam(required = false) String typeCarburant,
+            @RequestParam(required = false) String couleur,
+            @RequestParam(required = false) String PrixMin,
+            @RequestParam(required = false) String PrixMax,
+            @RequestParam(required = false) String anneeMin,
+            @RequestParam(required = false) String anneeMax,
+            @RequestParam(required = false) String ville,
+            @RequestParam(required = false) String keyword,
+            Pageable pageable
+    ) {
+
+
+        Date anneeMins= anneeMin!=null ?Convertion.convertStringToDate( anneeMin):null;
+        Date anneeMaxs=anneeMax!=null ? Convertion.convertStringToDate( anneeMax):null;
+        Float kilometrageMins=kilometrageMin!=null? Convertion.convertStringToFloat(kilometrageMin):null;
+        Float kilometrageMaxs=kilometrageMax!=null? Convertion.convertStringToFloat(kilometrageMax):null;
+        Float PrixMins=PrixMin!=null? Convertion.convertStringToFloat(PrixMin):null;
+        Float PrixMaxs=PrixMax!=null? Convertion.convertStringToFloat(PrixMax):null;
+
+
+
+
+        Page<Auto> result= autoService.searchCars(
+                marque, typeCarrosserie, typeTransmission,
+                kilometrageMins, kilometrageMaxs, typeMoteur, typeCarburant,
+                couleur, PrixMins, PrixMaxs, anneeMins, anneeMaxs, ville, keyword, pageable
+        );
+        List<Auto> autos = new ArrayList<>();
+        if (result != null && result.hasContent()) {  // Double vérification
+            autos = new ArrayList<>(result.getContent());
+
+        }
+        assert result != null;
+        PaginatedCarResponse response = new PaginatedCarResponse(
+                autos,
+                result.getNumber(),
+                result.getSize(),
+                result.getTotalElements(),
+                result.getTotalPages(),
+                result.isLast()
+        );
+        return ResponseEntity.ok(response);
+    }
+
+
+
+ /*   @GetMapping("/newsearchbb")
     public ResponseEntity<PaginatedCarResponse> newsearchCars(
             @ModelAttribute SearchDto criteria,
             @RequestParam(defaultValue = "0") int page,
@@ -104,21 +159,8 @@ public class SellerRestController {
         List<Auto> autos = new ArrayList<>();
         if (result != null && result.hasContent()) {  // Double vérification
             autos = new ArrayList<>(result.getContent());
-            System.out.println("zouzou5");// Conversion explicite
+
         }
-
-        autos.forEach(auto -> {
-            if (auto.getId() != null) {
-
-                System.out.println("Extension pour l'auto ID " + auto.getMarques()+ ": ");
-
-            }
-        });
-
-        System.out.println( result.isLast()+"bobo1" );
-        System.out.println( result.getTotalPages()+"bobo2" );
-        System.out.println( result.isLast()+"bobo1" );
-
         PaginatedCarResponse response = new PaginatedCarResponse(
                 autos,
                 result.getNumber(),
@@ -127,10 +169,8 @@ public class SellerRestController {
                 result.getTotalPages(),
                 result.isLast()
         );
-        System.out.println(criteria.toString()+"lalalala2");
-        //System.out.println(response);
         return ResponseEntity.ok(response);
-    }
+    }*/
 
 
 

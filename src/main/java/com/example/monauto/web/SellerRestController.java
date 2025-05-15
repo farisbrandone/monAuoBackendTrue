@@ -76,6 +76,7 @@ public class SellerRestController {
         Float PrixMax=criteria.getPrixMin()!=null? Convertion.convertStringToFloat(criteria.getPrixMax()):null;
         String typeMoteur=criteria.getTypeMoteur();
         String typeCarburant=criteria.getTypeCarburant();
+        String typeTransmission=criteria.getTypeTransmission();
         String keyword= criteria.getKeyWord();
         String selectedColor=criteria.getSelectedColor();
 
@@ -94,6 +95,7 @@ public class SellerRestController {
                 PrixMax,
                 typeMoteur,
                 typeCarburant,
+                typeTransmission,
                 selectedColor,
                 keyword,
                 pageable

@@ -45,9 +45,9 @@ public class MonAutoApplication implements CommandLineRunner {
         restConfiguration.exposeIdsFor(Auto.class, Seller.class, ImageClass.class, Role.class);
         autoService.initSeller();
         autoService.initAuto();
-        Collection<String> my= Arrays.asList("ADMIN","USER","PARTICULIER", "ENTREPRISE", "STUDYACTIVATION", "DESACTIVATE" );
+       /* Collection<String> my= Arrays.asList("ADMIN","USER","PARTICULIER", "ENTREPRISE", "STUDYACTIVATION", "DESACTIVATE" );
 
-        Collection<Role> myRole= roleService.addRole(my);
+        Collection<Role> myRole= roleService.addRole(my);*/
 
 
 

@@ -32,4 +32,22 @@ public class RoleServiceImpl implements IRoleService {
         });
         return roleList;
     }
+
+    @Override
+    public void initAuto() {
+
+       /* sellerRepository.findAll().forEach(seller -> {
+            Stream.of("Audi", "Toyota", "Mercedes", "BMW", "Honda", "Ford", "Renaud", "Citroen", "Nissan").forEach(auto -> {
+                Auto autoEntity = new Auto();
+                RandomString randomString = new RandomString();
+                autoEntity.setMarques(auto);
+                autoEntity.setTypeCarburant(randomString.RandomStringMethod());
+                autoEntity.setSeller(seller);
+                autoRepository.save(autoEntity);
+            });
+        });*/
+    }
+
+
+
 }

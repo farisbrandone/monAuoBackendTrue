@@ -57,7 +57,8 @@ public class Auto {
     private Float conso100kmAutoRoute;
     private Float conso100kmVille;
     private Float tailleDuMoteur;
-
+    private String descriptionAuto;
+   private String climatisation;
     @OneToMany(mappedBy = "auto", cascade = CascadeType.ALL)
     private Collection<ImageAuto> imagesAuto=new ArrayList<>();
 }

@@ -46,6 +46,8 @@ public class AutoMap {
         this.auto.setConso100kmAutoRoute(Float.parseFloat(autoPostDto.getConso100kmAutoRoute()));
          this.auto.setConso100kmVille(Float.parseFloat(autoPostDto.getConso100kmVille()));
          this.auto.setTailleDuMoteur(Float.parseFloat(autoPostDto.getTailleDuMoteur()));
+         this.auto.setDescriptionAuto(autoPostDto.getDescriptionAuto());
+         this.auto.setClimatisation(autoPostDto.getClimatisation());
         return this.auto;
     }
 }

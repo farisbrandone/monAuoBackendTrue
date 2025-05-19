@@ -6,4 +6,5 @@ import java.util.Collection;
 
 public interface IRoleService {
     Collection<Role> addRole(Collection<String> roles);
+    public void initAuto();
 }

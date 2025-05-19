@@ -38,5 +38,7 @@ public class AutoPostDto {
     private String conso100kmAutoRoute;
     private String conso100kmVille;
     private String tailleDuMoteur;
+    private String descriptionAuto;
+    private String climatisation;
 
 }

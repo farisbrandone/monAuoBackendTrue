@@ -33,6 +33,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
        String email = request.getParameter("email");
        String password = request.getParameter("password");
+       System.out.println("email: " + email);
+       System.out.println("password: " + password);
        UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(email, password);
        return authenticationManager.authenticate(authRequest);
 
@@ -41,6 +43,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         User user = (User) authResult.getPrincipal();
+        System.out.println("username: " + user.getUsername());
         Algorithm algorithm = Algorithm.HMAC256(JwtUtils.SECRET);
         String jwtAccessToken = JWT.create()
                 .withSubject(user.getUsername())

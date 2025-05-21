@@ -253,6 +253,7 @@ public class SellerRestController {
     @GetMapping(path = "/refreshToken")
     public void refreshToken(HttpServletResponse response, HttpServletRequest request) {
         String refreshToken = request.getHeader("Authorization");
+       System.out.println(refreshToken);
         if (refreshToken != null && refreshToken.startsWith("Bearer ")) {
             try {
                 refreshToken = refreshToken.substring(7);
@@ -260,6 +261,7 @@ public class SellerRestController {
                 JWTVerifier jwtVerifier = JWT.require(algorithm).build();
                 DecodedJWT decodedJWT = jwtVerifier.verify(refreshToken);
                 String email = decodedJWT.getSubject();
+                System.out.println("email for refreshToken: "+email);
                 Seller seller= sellerService.loadSellerByEmail(email);
                 String jwtAccessToken = JWT.create()
                         .withSubject(seller.getEmail())

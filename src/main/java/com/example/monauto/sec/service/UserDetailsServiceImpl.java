@@ -27,8 +27,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if(!seller.isActiveState()){
             throw new RuntimeException("Vous n'avez pas confirmez votre inscription par email");
         }
+        System.out.println(seller+"qqqqqqqqqqqqqqqqq");
         Collection<GrantedAuthority> authorities=new ArrayList<>();
         seller.getRoleSeller().forEach(roleSeller->authorities.add(new SimpleGrantedAuthority(roleSeller.getRoleName().getRole())));
+       System.out.println(authorities+"zzzzzzzzzzzzzzzzzz");
         return new User(seller.getEmail(), seller.getPassword(), authorities);
     }
 }

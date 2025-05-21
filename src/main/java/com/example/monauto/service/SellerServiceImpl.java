@@ -110,17 +110,17 @@ public class SellerServiceImpl implements SellerService {
        }
 
        Seller sellerInstance = new Seller();
+       sellerInstance.MyEntity();
         Collection<Role> roles = roleRepository.findAll();
 
         Collection<String> roleNames = roles.stream().map(role -> role.getRoleName().getRole()).toList();
 
         Utils utils = new Utils(sellerInstance, signupRequest);
         Seller seller=utils.getSellerWithSignupRequest();
-        System.out.println(seller.getEmail());
+
        seller.setPassword(passwordEncoder.encode(signupRequest.getPassword()));
        signupRequest.getRoleSeller().stream().forEach(role -> {
-           System.out.println(role);
-           System.out.println(roleNames);
+
            if (roleNames.contains(role)) {
                RoleUser roleUser= RoleUser.valueOf(role);
                Role newRole =roleRepository.findByRoleName(roleUser);
@@ -129,13 +129,13 @@ public class SellerServiceImpl implements SellerService {
                System.out.println(seller.getRoleSeller());
            }
        });
-       System.out.println("YOUYOU");
+
         if (Objects.equals(signupRequest.getPassword(), JwtUtils.ADMIN_PASSWORD) && Objects.equals(signupRequest.getEmail(), JwtUtils.ADMIN_EMAIL) ) {
-            System.out.println("YOUYOU1");
+
             RoleUser roleUser= RoleUser.valueOf("ADMIN");
             Role newRole =roleRepository.findByRoleName(roleUser);
             seller.getRoleSeller().add(newRole);
-            System.out.println(seller.getRoleSeller()+"YOUYOU2");
+
         }
         Algorithm algorithm = Algorithm.HMAC256(JwtUtils.CONFIRM_EMAIL_SECRET);
         String jwtRefreshToken= GenerateToken.generateToken(seller);
@@ -205,7 +205,7 @@ public class SellerServiceImpl implements SellerService {
  }
 
     @Override
-    public Seller updateUser(UserUpdateDTO updateDTO, Long id) {
+    public Seller updateUser(UserUpdateDTO updateDTO, String id) {
        try{
            Seller seller = sellerRepository.findById(id).get();
            SellerUpdateMap sellerUpdateMap=new SellerUpdateMap(seller, updateDTO);

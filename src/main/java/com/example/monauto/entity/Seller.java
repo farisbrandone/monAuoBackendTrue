@@ -13,16 +13,17 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 public class Seller {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Id
+    private String id;
+
+    // other fields
+   /* @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;*/
     //@NotBlank(message = "Nom requis")
     private String nom;
     //@NotBlank(message = "Prenom requis")
@@ -74,4 +75,8 @@ public class Seller {
     private Instant dateOfModified;
    /* @Column(name = "token_creation_date")
     private LocalDateTime tokenCreationDate;*/
+
+    public void MyEntity() {
+        this.id = UUID.randomUUID().toString();
+    }
 }

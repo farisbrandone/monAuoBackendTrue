@@ -32,6 +32,7 @@ public class RoleServiceImpl implements IRoleService {
         Collection<Role> roleList = new ArrayList<>();
         roles.forEach(roleName -> {
             Role role = new Role();
+            role.MyEntity();
             RoleUser roleUser= RoleUser.valueOf(roleName);
             role.setRoleName(roleUser);
        Role  myrole= roleRepository.save(role);

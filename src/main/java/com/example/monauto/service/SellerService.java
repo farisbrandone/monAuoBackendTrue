@@ -24,5 +24,5 @@ public interface SellerService {
     public void initiatePasswordReset(String email);
     public void resetPassword(String token, String newPassword);
     public void sendContactEmailForAdmin(ContactDTO contactDTO);
-    public Seller updateUser(UserUpdateDTO updateDTO, Long id);
+    public Seller updateUser(UserUpdateDTO updateDTO, String id);
 }

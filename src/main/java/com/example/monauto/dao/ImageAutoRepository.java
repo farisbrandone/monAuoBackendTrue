@@ -7,5 +7,5 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 @RepositoryRestResource
 @CrossOrigin("*")
-public interface ImageAutoRepository extends JpaRepository<ImageAuto, Long> {
+public interface ImageAutoRepository extends JpaRepository<ImageAuto, String> {
 }

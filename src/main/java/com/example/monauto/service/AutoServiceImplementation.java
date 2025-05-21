@@ -66,15 +66,16 @@ public class AutoServiceImplementation implements IAutoService {
     @Override
     public Auto addOneAuto(AutoPostDto auto) {
         Auto auto1 = new Auto();
+        auto1.MyEntity();
         AutoMap autoMap=new AutoMap(auto1, auto);
         Auto autoSend=autoMap.getAutoWithAutoPostDto();
 
         Collection<ImageAuto> imageAutoCollection=new ArrayList<>();
         Collection<ImageAuto> imageAutoCollection2=new ArrayList<>();
         for (String imageAuto1 : auto.getImagesAuto()) {
-             System.out.println("ZOOZOZ");
-            System.out.println(imageAuto1);
+
             ImageAuto imageAuto=new ImageAuto();
+            imageAuto.MyEntity();
             imageAuto.setUrl(imageAuto1);
             ImageAuto imageAuto2= imageAutoRepository.save(imageAuto);
             imageAutoCollection.add(imageAuto2);
@@ -118,7 +119,7 @@ public class AutoServiceImplementation implements IAutoService {
     @Override
     public Auto updateOneAuto(AutoUpdateDto auto) {
         System.out.println(auto.toString());
-        Auto auto1 = autoRepository.findById(Long.parseLong(auto.getId())).orElse(null);
+        Auto auto1 = autoRepository.findById(auto.getId()).orElse(null);
         AutoUpdateMap autoMap=new AutoUpdateMap(auto1, auto);
         Auto autoSend=autoMap.getAutoWithAutoPostDto();
 

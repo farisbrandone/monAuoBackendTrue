@@ -4,18 +4,21 @@ import com.example.monauto.enumFile.*;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Getter @Setter @ToString @AllArgsConstructor @NoArgsConstructor
 @Builder
 public class Auto {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Id
+    private String id;
+
+    // other fields
+
+
+   /* @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;*/
     private String code;
     @Column(length = 1000)
     private String carteGriseUrl;
@@ -61,4 +64,11 @@ public class Auto {
    private String climatisation;
     @OneToMany(mappedBy = "auto", cascade = CascadeType.ALL)
     private Collection<ImageAuto> imagesAuto=new ArrayList<>();
+
+
+    public void MyEntity() {
+        this.id = UUID.randomUUID().toString();
+    }
+
+
 }

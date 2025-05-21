@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 @RepositoryRestResource
 @CrossOrigin("*")
-public interface SellerRepository extends JpaRepository<Seller, Long> {
+public interface SellerRepository extends JpaRepository<Seller, String> {
     Seller findSellerByEmail(String email);
     boolean existsByEmail(String email);
     Seller findSellerByTokenConfirmation(String tokenConfirmation);

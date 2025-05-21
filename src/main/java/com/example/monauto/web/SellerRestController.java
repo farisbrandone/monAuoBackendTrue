@@ -344,7 +344,7 @@ public class SellerRestController {
     }
 
     @DeleteMapping("/deleteImageAuto/{id}")
-    public ResponseEntity<?> deleteImageAuto(@PathVariable Long id) {
+    public ResponseEntity<?> deleteImageAuto(@PathVariable String id) {
         System.out.println("Auto has been deleted successfully" + id);
         try {
           imageAutoRepository.deleteById(id);
@@ -359,7 +359,7 @@ public class SellerRestController {
     @DeleteMapping("/deleteAuto/{id}")
     public ResponseEntity<?> deleteAuto( @PathVariable String id) {
          try {
-             autoRepository.deleteById(Long.parseLong(id));
+             autoRepository.deleteById(id);
              System.out.println("Auto has been deleted successfully");
              return ResponseEntity.ok("Auto has been deleted successfully");
          } catch (RuntimeException e) {
@@ -368,7 +368,7 @@ public class SellerRestController {
     }
 
     @PutMapping("/updateUser/{id}")
-    public ResponseEntity<Seller> upadeSeller( @PathVariable Long id , @RequestBody UserUpdateDTO updateDTO  ) {
+    public ResponseEntity<Seller> upadeSeller( @PathVariable String id , @RequestBody UserUpdateDTO updateDTO  ) {
         try {
           Seller seller=sellerService.updateUser(updateDTO, id);
 
@@ -381,7 +381,7 @@ public class SellerRestController {
     @DeleteMapping("/deleteUser/{id}")
     public ResponseEntity<?> deleteUser( @PathVariable String id) {
         try {
-            sellerRepository.deleteById(Long.parseLong(id));
+            sellerRepository.deleteById(id);
             System.out.println("seller has been deleted successfully");
             return ResponseEntity.ok("Seller has been deleted successfully");
         } catch (RuntimeException e) {

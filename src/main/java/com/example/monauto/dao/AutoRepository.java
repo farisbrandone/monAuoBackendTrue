@@ -16,6 +16,6 @@ import java.util.Date;
 
 @RepositoryRestResource
 @CrossOrigin("*")
-public interface AutoRepository  extends JpaRepository<Auto, Long>, JpaSpecificationExecutor<Auto>{
+public interface AutoRepository  extends JpaRepository<Auto, String>, JpaSpecificationExecutor<Auto>{
 
 }

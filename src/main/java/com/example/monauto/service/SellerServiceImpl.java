@@ -120,6 +120,7 @@ public class SellerServiceImpl implements SellerService {
        seller.setPassword(passwordEncoder.encode(signupRequest.getPassword()));
        signupRequest.getRoleSeller().stream().forEach(role -> {
            System.out.println(role);
+           System.out.println(roleNames);
            if (roleNames.contains(role)) {
                RoleUser roleUser= RoleUser.valueOf(role);
                Role newRole =roleRepository.findByRoleName(roleUser);

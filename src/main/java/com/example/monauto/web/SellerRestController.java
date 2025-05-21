@@ -12,6 +12,7 @@ import com.example.monauto.dao.SellerRepository;
 import com.example.monauto.entity.Auto;
 import com.example.monauto.entity.Role;
 import com.example.monauto.entity.Seller;
+import com.example.monauto.sec.JwtUtils;
 import com.example.monauto.service.*;
 import com.example.monauto.utils.Convertion;
 import com.example.monauto.utils.SearchCarSpecification;
@@ -253,13 +254,16 @@ public class SellerRestController {
     @GetMapping(path = "/refreshToken")
     public void refreshToken(HttpServletResponse response, HttpServletRequest request) {
         String refreshToken = request.getHeader("Authorization");
-       System.out.println(refreshToken);
+
         if (refreshToken != null && refreshToken.startsWith("Bearer ")) {
             try {
                 refreshToken = refreshToken.substring(7);
-                Algorithm algorithm = Algorithm.HMAC256("mySecret");
+                System.out.println(refreshToken+"toutou");
+                Algorithm algorithm = Algorithm.HMAC256(JwtUtils.SECRET);
                 JWTVerifier jwtVerifier = JWT.require(algorithm).build();
+                System.out.println("toutou2");
                 DecodedJWT decodedJWT = jwtVerifier.verify(refreshToken);
+                System.out.println("toutou3");
                 String email = decodedJWT.getSubject();
                 System.out.println("email for refreshToken: "+email);
                 Seller seller= sellerService.loadSellerByEmail(email);

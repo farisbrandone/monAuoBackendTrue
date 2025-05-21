@@ -119,16 +119,22 @@ public class SellerServiceImpl implements SellerService {
         System.out.println(seller.getEmail());
        seller.setPassword(passwordEncoder.encode(signupRequest.getPassword()));
        signupRequest.getRoleSeller().stream().forEach(role -> {
+           System.out.println(role);
            if (roleNames.contains(role)) {
                RoleUser roleUser= RoleUser.valueOf(role);
                Role newRole =roleRepository.findByRoleName(roleUser);
+              System.out.println( seller.getRoleSeller());
                seller.getRoleSeller().add(newRole);
+               System.out.println(seller.getRoleSeller());
            }
        });
+       System.out.println("YOUYOU");
         if (Objects.equals(signupRequest.getPassword(), JwtUtils.ADMIN_PASSWORD) && Objects.equals(signupRequest.getEmail(), JwtUtils.ADMIN_EMAIL) ) {
+            System.out.println("YOUYOU1");
             RoleUser roleUser= RoleUser.valueOf("ADMIN");
             Role newRole =roleRepository.findByRoleName(roleUser);
             seller.getRoleSeller().add(newRole);
+            System.out.println(seller.getRoleSeller()+"YOUYOU2");
         }
         Algorithm algorithm = Algorithm.HMAC256(JwtUtils.CONFIRM_EMAIL_SECRET);
         String jwtRefreshToken= GenerateToken.generateToken(seller);
@@ -139,9 +145,9 @@ public class SellerServiceImpl implements SellerService {
                 + "https://mon-auto-com.onrender.com/seller-confirm-registration?token=" + jwtRefreshToken;
 
         //System.out.println("http://localhost:3000/seller-confirm-registration?token=" + jwtRefreshToken);
-
+        System.out.println("YOUYOU3");
         emailService.sendConfirmationEmail(seller.getEmail(), subject, text);
-
+        System.out.println("YOUYOU4");
         return sellerRepository.save(seller);
     }
 

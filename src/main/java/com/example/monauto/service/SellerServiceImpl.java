@@ -142,8 +142,9 @@ public class SellerServiceImpl implements SellerService {
         seller.setTokenConfirmation(jwtRefreshToken);
         //user.setTokenCreationDate(LocalDateTime.now());
         String subject = "Please confirm your registration";
-        String text = "Thank you for registering. Please confirm your email by clicking the link below:\n\n"
-                + "https://mon-auto-com.onrender.com/seller-confirm-registration?token=" + jwtRefreshToken;
+        String url= "https://mon-auto-com.onrender.com/seller-confirm-registration?token=" + jwtRefreshToken;
+        String text = JwtUtils.valueEmail(url);
+
 
         //System.out.println("http://localhost:3000/seller-confirm-registration?token=" + jwtRefreshToken);
         System.out.println("YOUYOU3");

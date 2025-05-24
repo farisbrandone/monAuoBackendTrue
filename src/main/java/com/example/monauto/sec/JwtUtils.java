@@ -84,4 +84,91 @@ public class JwtUtils {
            "</html>";
    }
 
+
+    public static  String emailForResetPassword(String resetUrl ){
+        return "<!DOCTYPE html>\n" +
+                "<html>\n" +
+                "  <head>\n" +
+                "    <title>Centered HTML Email</title>\n" +
+                "    <style>\n" +
+                "      .container {\n" +
+                "        width: 100%;\n" +
+                "      }\n" +
+                "      .content {\n" +
+                "        margin: auto auto;\n" +
+                "      }\n" +
+                "      .text-content1 {\n" +
+                "        margin: 0 auto;\n" +
+                "        text-align: center;\n" +
+                "      }\n" +
+                "      .a-content1 {\n" +
+                "        display: block;\n" +
+                "        width: 260px;\n" +
+                "        margin: 0 auto;\n" +
+                "        border-radius: 5px;\n" +
+                "        font-weight: 900;\n" +
+                "        background-color: #e6c068;\n" +
+                "        color: white;\n" +
+                "        padding: 15px 20px;\n" +
+                "        text-align: center;\n" +
+                "        font-size: 16px;\n" +
+                "        margin-bottom: 40px;\n" +
+                "        margin-top: 20px;\n" +
+                "      }\n" +
+                "      .img-content {\n" +
+                "        margin: 0 auto;\n" +
+                "        display: block;\n" +
+                "        width: 150px;\n" +
+                "        background-color: transparent;\n" +
+                "        margin-bottom: 30px;\n" +
+                "        margin-top: 30px;\n" +
+                "      }\n" +
+                "      .child4 {\n" +
+                "        width: 100%;\n" +
+                "        text-align: center;\n" +
+                "      }\n" +
+                "      .text-child4 {\n" +
+                "        color: rgb(53, 81, 240);\n" +
+                "        margin-left: 5px;\n" +
+                "      }\n" +
+                "      .text-textfinal {\n" +
+                "        margin-top: 2px;\n" +
+                "        margin-left: -250px;\n" +
+                "      }\n" +
+                "      .fil {\n" +
+                "        display: block;\n" +
+                "        margin-left: -130px;\n" +
+                "      }\n" +
+                "    </style>\n" +
+                "  </head>\n" +
+                "  <body>\n" +
+                "    <div class=\"container\">\n" +
+                "      <div class=\"content\">\n" +
+                "       \n" +
+                "        <p class=\"text-content1\">\n" +
+                "          Pour mettre à jour votre mot de passe, veillez cliquez le boutton ci-dessous :\n" +
+                "        </p>\n" +
+                "        <a\n" +
+                "          class=\"a-content1\"\n" +
+                "          href="+"\""+resetUrl +"\""+"\n" +
+                "        >\n" +
+                "          Cliquez simplement ici\n" +
+                "        </a>\n" +
+                "<p class=\"text-content1\">\n" +
+                "          Ce lien expirera dans 24h\n" +
+                "        </p>\n" +
+                "      </div>\n" +
+                "    </div>\n" +
+                "  </body>\n" +
+                "</html>";
+    }
+
+
+
+
+   /*
+   *  String text = "To reset your password, please click the link below:\n\n" + resetUrl +
+                "\n\nThis link will expire in 24 hours.";
+   * */
+
 }

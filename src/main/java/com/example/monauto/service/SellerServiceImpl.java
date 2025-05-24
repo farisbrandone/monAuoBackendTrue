@@ -14,6 +14,7 @@ import com.example.monauto.entity.Role;
 import com.example.monauto.entity.Seller;
 import com.example.monauto.enumFile.RoleUser;
 import com.example.monauto.sec.JwtUtils;
+import jakarta.mail.MessagingException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -104,7 +105,7 @@ public class SellerServiceImpl implements SellerService {
     @Override
     public Seller registerUser(SignupRequest signupRequest) {
 
-
+        try {
        if (sellerRepository.existsByEmail(signupRequest.getEmail())) {
            throw new RuntimeException("Email already in use");
        }
@@ -147,10 +148,15 @@ public class SellerServiceImpl implements SellerService {
 
 
         //System.out.println("http://localhost:3000/seller-confirm-registration?token=" + jwtRefreshToken);
-        System.out.println("YOUYOU3");
-        emailService.sendConfirmationEmail(seller.getEmail(), subject, text);
-        System.out.println("YOUYOU4");
-        return sellerRepository.save(seller);
+
+
+            emailService.sendConfirmationEmail(seller.getEmail(), subject, text);
+            return sellerRepository.save(seller);
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+
+
     }
 
 
@@ -174,6 +180,7 @@ public class SellerServiceImpl implements SellerService {
 
     @Override
     public void initiatePasswordReset(String email) {
+        try {
         Seller seller = sellerRepository.findSellerByEmail(email);
         if (seller == null) {
             throw new RuntimeException("User not found");
@@ -186,10 +193,12 @@ public class SellerServiceImpl implements SellerService {
         // Send email with reset link
         String resetUrl = "https://mon-auto-com.onrender.com/seller-change-password?token=" + token;
         String subject = "Password Reset Request";
-        String text = "To reset your password, please click the link below:\n\n" + resetUrl +
-                "\n\nThis link will expire in 24 hours.";
+        String text = JwtUtils.emailForResetPassword(resetUrl);
 
-        emailService.sendConfirmationEmail(seller.getEmail(), subject, text);
+            emailService.sendConfirmationEmail(seller.getEmail(), subject, text);
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

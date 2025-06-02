@@ -442,6 +442,23 @@ public class SellerRestController {
         return ResponseEntity.ok(results);
     }
 
+
+    @GetMapping("verified-token")
+
+    public ResponseEntity<Map<String, String>> verifiedToken(@RequestParam String token)  {
+
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(JwtUtils.SECRET);
+            JWTVerifier jwtVerifier = JWT.require(algorithm).build();
+            DecodedJWT decodedJWT = jwtVerifier.verify(token);
+            String username = decodedJWT.getSubject();
+            return ResponseEntity.ok(Map.of("email", username));
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+
+    }
+
 }
 
 

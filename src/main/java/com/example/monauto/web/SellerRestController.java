@@ -285,6 +285,7 @@ public class SellerRestController {
                 new ObjectMapper().writeValue(response.getOutputStream(), idToken);
 
             } catch (Exception e) {
+                System.out.println(e.getMessage());
                 response.setHeader("error-message", e.getMessage());
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             }

@@ -267,19 +267,20 @@ public class SellerRestController {
                 String email = decodedJWT.getSubject();
                 System.out.println("email for refreshToken: "+email);
                 Seller seller= sellerService.loadSellerByEmail(email);
+                System.out.println(seller);
                 String jwtAccessToken = JWT.create()
                         .withSubject(seller.getEmail())
-                        .withExpiresAt(new Date(System.currentTimeMillis()+5*60*1000))
+                        .withExpiresAt(new Date(System.currentTimeMillis()+60*60*1000))
                         .withIssuer(request.getRequestURL().toString()) /*celui à l'origine du token*/
                         .withClaim("roles", seller.getRoleSeller().stream()
                                 .map(ga ->ga.getRoleName()).collect(Collectors.toList()))
                         .sign(algorithm);
-
+                 System.out.println("toctoc");
                 Map<String, String> idToken = new HashMap<>();
                 idToken.put("access-token", jwtAccessToken);
                 idToken.put("refresh-token", refreshToken);
                 response.setContentType("application/json");
-
+                System.out.println(idToken);
                 /*objectMapper() utiliser pour sérialiser un map en json*/
                 new ObjectMapper().writeValue(response.getOutputStream(), idToken);
 

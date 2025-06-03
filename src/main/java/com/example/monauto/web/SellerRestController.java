@@ -12,6 +12,7 @@ import com.example.monauto.dao.SellerRepository;
 import com.example.monauto.entity.Auto;
 import com.example.monauto.entity.Role;
 import com.example.monauto.entity.Seller;
+import com.example.monauto.enumFile.RoleUser;
 import com.example.monauto.sec.JwtUtils;
 import com.example.monauto.service.*;
 import com.example.monauto.utils.Convertion;
@@ -267,13 +268,13 @@ public class SellerRestController {
                 String email = decodedJWT.getSubject();
                 System.out.println("email for refreshToken: "+email);
                 Seller seller= sellerService.loadSellerByEmail(email);
-                System.out.println(seller);
+                System.out.println(seller.getRoleSeller());
                 String jwtAccessToken = JWT.create()
                         .withSubject(seller.getEmail())
                         .withExpiresAt(new Date(System.currentTimeMillis()+60*60*1000))
                         .withIssuer(request.getRequestURL().toString()) /*celui à l'origine du token*/
                         .withClaim("roles", seller.getRoleSeller().stream()
-                                .map(ga ->ga.getRoleName()).collect(Collectors.toList()))
+                                .map(Role::getRoleName).toList().stream().map(RoleUser::getRole).toList())
                         .sign(algorithm);
                  System.out.println("toctoc");
                 Map<String, String> idToken = new HashMap<>();

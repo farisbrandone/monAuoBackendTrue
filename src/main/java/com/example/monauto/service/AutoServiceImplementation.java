@@ -65,39 +65,53 @@ public class AutoServiceImplementation implements IAutoService {
 
     @Override
     public Auto addOneAuto(AutoPostDto auto) {
-        Auto auto1 = new Auto();
-        auto1.MyEntity();
-        AutoMap autoMap=new AutoMap(auto1, auto);
-        Auto autoSend=autoMap.getAutoWithAutoPostDto();
+        try {
 
-        Collection<ImageAuto> imageAutoCollection=new ArrayList<>();
-        Collection<ImageAuto> imageAutoCollection2=new ArrayList<>();
-        for (String imageAuto1 : auto.getImagesAuto()) {
 
-            ImageAuto imageAuto=new ImageAuto();
-            imageAuto.MyEntity();
-            imageAuto.setUrl(imageAuto1);
-            ImageAuto imageAuto2= imageAutoRepository.save(imageAuto);
-            imageAutoCollection.add(imageAuto2);
+            Auto auto1 = new Auto();
+            auto1.MyEntity();
+            AutoMap autoMap=new AutoMap(auto1, auto);
+            Auto autoSend=autoMap.getAutoWithAutoPostDto();
 
+            Collection<ImageAuto> imageAutoCollection=new ArrayList<>();
+            Collection<ImageAuto> imageAutoCollection2=new ArrayList<>();
+            System.out.println("doudou0");
+            for (String imageAuto1 : auto.getImagesAuto()) {
+
+                ImageAuto imageAuto=new ImageAuto();
+                imageAuto.MyEntity();
+                imageAuto.setUrl(imageAuto1);
+                ImageAuto imageAuto2= imageAutoRepository.save(imageAuto);
+                imageAutoCollection.add(imageAuto2);
+
+            }
+            System.out.println("doudou1");
+            String myToken=auto.getUserToken();
+            Algorithm algorithm = Algorithm.HMAC256(JwtUtils.SECRET);
+            JWTVerifier jwtVerifier = JWT.require(algorithm).build();
+            DecodedJWT decodedJWT = jwtVerifier.verify(myToken);
+            String email = decodedJWT.getSubject();
+            Seller seller=sellerRepository.findSellerByEmail(email);
+            autoSend.setSeller(seller);
+            System.out.println("doudou2");
+            autoSend.setImagesAuto(imageAutoCollection);
+            Auto myAuto=autoRepository.save(autoSend);
+            System.out.println("doudou3");
+            for (ImageAuto image : imageAutoCollection) {
+                image.setAuto(myAuto);
+                ImageAuto imageAuto2= imageAutoRepository.save(image);
+                imageAutoCollection2.add(imageAuto2);
+
+            }
+            System.out.println("doudou4");
+            myAuto.setImagesAuto(imageAutoCollection2);
+            return autoRepository.save(myAuto);
+
+        } catch (Exception e) {
+            System.out.println("doudou-1");
+            throw new RuntimeException(e);
         }
-        String myToken=auto.getUserToken();
-        Algorithm algorithm = Algorithm.HMAC256(JwtUtils.SECRET);
-        JWTVerifier jwtVerifier = JWT.require(algorithm).build();
-        DecodedJWT decodedJWT = jwtVerifier.verify(myToken);
-        String email = decodedJWT.getSubject();
-        Seller seller=sellerRepository.findSellerByEmail(email);
-        autoSend.setSeller(seller);
-        autoSend.setImagesAuto(imageAutoCollection);
-        Auto myAuto=autoRepository.save(autoSend);
-        for (ImageAuto image : imageAutoCollection) {
-            image.setAuto(myAuto);
-            ImageAuto imageAuto2= imageAutoRepository.save(image);
-            imageAutoCollection2.add(imageAuto2);
 
-        }
-        myAuto.setImagesAuto(imageAutoCollection2);
-       return autoRepository.save(myAuto);
 
     }
 

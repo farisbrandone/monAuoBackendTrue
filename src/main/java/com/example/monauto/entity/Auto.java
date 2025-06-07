@@ -19,6 +19,7 @@ public class Auto {
 
    /* @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;*/
+
     private String code;
     @Column(length = 1000)
     private String carteGriseUrl;
@@ -60,6 +61,7 @@ public class Auto {
     private Float conso100kmAutoRoute;
     private Float conso100kmVille;
     private Float tailleDuMoteur;
+    @Column(length = 1000)
     private String descriptionAuto;
    private String climatisation;
     @OneToMany(mappedBy = "auto", cascade = CascadeType.ALL)

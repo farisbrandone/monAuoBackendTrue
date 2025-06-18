@@ -21,6 +21,8 @@ import com.example.monauto.utils.AutoSpecifications;
 import com.example.monauto.utils.AutoUpdateMap;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.DeleteMapping;
 
@@ -207,6 +209,13 @@ public class AutoServiceImplementation implements IAutoService {
             String keyword,
             Pageable pageable
     ) {
+
+        Pageable sortedPageable = PageRequest.of(
+                pageable.getPageNumber(),
+                pageable.getPageSize(),
+                Sort.by(Sort.Direction.DESC, "dateOfCreated")
+        );
+
         Specification<Auto> spec = Specification
                 .where(AutoSpecifications.hasMarque(marque))
                 .and(AutoSpecifications.hasTypeCarrosserie(typeCarrosserie))
